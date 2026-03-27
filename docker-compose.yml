@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  coordinator:
+    build: ./coordinator
+    container_name: coordinator
+    environment:
+      COORDINATOR_ID: ${COORDINATOR_ID}
+    ports:
+      - "5000:5000"
+
+  worker:
+    build: ./worker
+    container_name: worker
+    depends_on:
+      - coordinator
+    environment:
+      COORDINATOR_URL: ${COORDINATOR_URL}
